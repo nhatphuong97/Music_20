@@ -10,14 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.framgia.music_20.MainActivity"
+            android:name="com.framgia.music_20.screen.main.MainActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.framgia.music_20.screen.splash_screen.SplashScreenActivity"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
     </application>
+
 </manifest>
