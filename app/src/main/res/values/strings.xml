@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Music</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_mymusic">My Music</string>
+    <string name="title_Artist">Artist</string>
+    <string name="title_search">Search</string>
+    <string name="text_hello">Music Connect Everything</string>
+</resources>
