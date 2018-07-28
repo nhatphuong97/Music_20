@@ -23,4 +23,3 @@ public class ExampleInstrumentedTest {
         assertEquals("com.framgia.music_20", appContext.getPackageName());
     }
 }
-
