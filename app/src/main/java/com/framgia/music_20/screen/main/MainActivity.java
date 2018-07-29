@@ -12,7 +12,7 @@ import com.framgia.music_20.utils.Constant;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        BottomNavigationView.OnNavigationItemSelectedListener,ViewPager.OnPageChangeListener {
+        BottomNavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener {
 
     BottomNavigationView mNavigationView = null;
     private ViewPager mViewPager;
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity
     public void initView() {
         mNavigationView = findViewById(R.id.navigation);
         mNavigationView.setOnNavigationItemSelectedListener(this);
-        mViewPager = findViewById(R.id.viewpager);
+        mViewPager = findViewById(R.id.viewpager_home);
         mActivityAdapter = new MainActivityAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mActivityAdapter);
         mViewPager.setOnPageChangeListener(this);
