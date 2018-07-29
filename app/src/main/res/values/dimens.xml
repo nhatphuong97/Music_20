@@ -7,4 +7,6 @@
     <dimen name="dp_15">15dp</dimen>
     <dimen name="dp_130">130dp</dimen>
     <dimen name="dp_68">68dp</dimen>
+    <dimen name="dp_250">250dp</dimen>
+    <dimen name="dp_20">20dp</dimen>
 </resources>

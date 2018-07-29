@@ -3,6 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="color_black">#330166</color>
-    <color name="color_purple">#b664b0</color>
+    <color name="color_black">#c203c9</color>
+    <color name="color_pink">#cc90ba</color>
+    <color name="color_purple10">#b664b0</color>
+    <color name="Color_white">#fcfbfb</color>
+    <color name="color_red">#ff00</color>
 </resources>
