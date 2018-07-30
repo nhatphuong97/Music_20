@@ -9,6 +9,9 @@ public class Artist implements Parcelable {
     private String mUsername;
     private String mAvatarUrl;
 
+    public Artist() {
+    }
+
     protected Artist(Parcel in) {
         mID = in.readInt();
         mUsername = in.readString();

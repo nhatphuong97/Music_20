@@ -6,6 +6,7 @@
     <color name="color_black">#c203c9</color>
     <color name="color_pink">#cc90ba</color>
     <color name="color_purple10">#b664b0</color>
-    <color name="Color_white">#fcfbfb</color>
+    <color name="color_white">#fcfbfb</color>
     <color name="color_red">#ff00</color>
+    <color name="color_black10">#050000</color>
 </resources>
