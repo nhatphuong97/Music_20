@@ -20,7 +20,7 @@
         android:background="@color/color_black"
         android:backgroundTintMode="screen"
         app:itemIconTint="@color/color"
-        app:itemTextColor="@color/Color_white"
+        app:itemTextColor="@color/color_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
