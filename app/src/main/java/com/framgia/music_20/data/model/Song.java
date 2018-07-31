@@ -6,8 +6,6 @@ import android.os.Parcelable;
 public class Song implements Parcelable {
 
     private int mId;
-    private String mUri;
-    private int mUserId;
     private String mGenre;
     private String mTitle;
     private String mStreamUrl;
@@ -15,10 +13,11 @@ public class Song implements Parcelable {
     private int mDuration;
     private Artist mArtist;
 
+    public Song() {
+    }
+
     public Song(Parcel in) {
         mId = in.readInt();
-        mUri = in.readString();
-        mUserId = in.readInt();
         mGenre = in.readString();
         mTitle = in.readString();
         mStreamUrl = in.readString();
@@ -48,22 +47,6 @@ public class Song implements Parcelable {
 
     public void setId(int id) {
         mId = id;
-    }
-
-    public String getUri() {
-        return mUri;
-    }
-
-    public void setUri(String uri) {
-        mUri = uri;
-    }
-
-    public int getUserId() {
-        return mUserId;
-    }
-
-    public void setUserId(int userId) {
-        mUserId = userId;
     }
 
     public String getGenre() {
@@ -122,8 +105,6 @@ public class Song implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(mId);
-        dest.writeString(mUri);
-        dest.writeInt(mUserId);
         dest.writeString(mGenre);
         dest.writeString(mTitle);
         dest.writeString(mStreamUrl);
