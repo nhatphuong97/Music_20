@@ -10,9 +10,10 @@ public class Artist implements Parcelable {
     private String mAvatarUrl;
 
     public Artist() {
+
     }
 
-    protected Artist(Parcel in) {
+    private Artist(Parcel in) {
         mID = in.readInt();
         mUsername = in.readString();
         mAvatarUrl = in.readString();
@@ -68,5 +69,11 @@ public class Artist implements Parcelable {
         dest.writeInt(mID);
         dest.writeString(mUsername);
         dest.writeString(mAvatarUrl);
+    }
+
+    public class ArtistComponent {
+        public static final String ID = "id";
+        public static final String AVATAR_URL = "avatar_url";
+        public static final String USERNAME = "username";
     }
 }
