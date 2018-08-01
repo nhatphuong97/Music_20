@@ -5,26 +5,6 @@ import android.os.Parcelable;
 
 public class Song implements Parcelable {
 
-    private int mId;
-    private String mGenre;
-    private String mTitle;
-    private String mStreamUrl;
-    private String mArtworkUrl;
-    private int mDuration;
-    private Artist mArtist;
-
-    public Song() {
-    }
-
-    public Song(Parcel in) {
-        mId = in.readInt();
-        mGenre = in.readString();
-        mTitle = in.readString();
-        mStreamUrl = in.readString();
-        mArtworkUrl = in.readString();
-        mDuration = in.readInt();
-    }
-
     public static final Creator<Song> CREATOR = new Creator<Song>() {
         @Override
         public Song createFromParcel(Parcel in) {
@@ -36,6 +16,25 @@ public class Song implements Parcelable {
             return new Song[size];
         }
     };
+    private int mId;
+    private String mGenre;
+    private String mTitle;
+    private String mStreamUrl;
+    private String mArtworkUrl;
+    private int mDuration;
+    private Artist mArtist;
+
+    public Song() {
+    }
+
+    private Song(Parcel in) {
+        mId = in.readInt();
+        mGenre = in.readString();
+        mTitle = in.readString();
+        mStreamUrl = in.readString();
+        mArtworkUrl = in.readString();
+        mDuration = in.readInt();
+    }
 
     public static Creator<Song> getCREATOR() {
         return CREATOR;
@@ -110,5 +109,14 @@ public class Song implements Parcelable {
         dest.writeString(mStreamUrl);
         dest.writeString(mArtworkUrl);
         dest.writeInt(mDuration);
+    }
+
+    public class SongComponet {
+        public static final String ID = "id";
+        public static final String DURATION = "duration";
+        public static final String TITLE = "title";
+        public static final String STREAM_URL = "stream_url";
+        public static final String ARTWORK_URL = "artwork_url";
+        public static final String GENRE = "genre";
     }
 }

@@ -6,18 +6,6 @@ import java.util.List;
 
 public class MoreData implements Parcelable {
 
-    private List<Song> mSongs;
-    private String mNextHref;
-
-    public MoreData() {
-        super();
-    }
-
-    protected MoreData(Parcel in) {
-        mSongs = in.createTypedArrayList(Song.CREATOR);
-        mNextHref = in.readString();
-    }
-
     public static final Creator<MoreData> CREATOR = new Creator<MoreData>() {
         @Override
         public MoreData createFromParcel(Parcel in) {
@@ -29,13 +17,28 @@ public class MoreData implements Parcelable {
             return new MoreData[size];
         }
     };
+    private List<Song> mSongLists;
+    private String mNextHref;
+
+    public MoreData() {
+        super();
+    }
+
+    protected MoreData(Parcel in) {
+        mSongLists = in.createTypedArrayList(Song.CREATOR);
+        mNextHref = in.readString();
+    }
+
+    public static Creator<MoreData> getCREATOR() {
+        return CREATOR;
+    }
 
     public List<Song> getSongArrayList() {
-        return mSongs;
+        return mSongLists;
     }
 
     public void setSongArrayList(List<Song> songArrayList) {
-        mSongs = songArrayList;
+        mSongLists = songArrayList;
     }
 
     public String getNextHref() {
@@ -46,10 +49,6 @@ public class MoreData implements Parcelable {
         mNextHref = nextHref;
     }
 
-    public static Creator<MoreData> getCREATOR() {
-        return CREATOR;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -57,7 +56,7 @@ public class MoreData implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeTypedList(mSongs);
+        dest.writeTypedList(mSongLists);
         dest.writeString(mNextHref);
     }
 }
