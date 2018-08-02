@@ -34,6 +34,17 @@ public class Song implements Parcelable {
         mStreamUrl = in.readString();
         mArtworkUrl = in.readString();
         mDuration = in.readInt();
+        mArtist = in.readParcelable(Artist.class.getClassLoader());
+    }
+
+    protected Song(Builder builder) {
+        mId = builder.mId;
+        mGenre = builder.mGenre;
+        mTitle = builder.mTitle;
+        mStreamUrl = builder.mStreamUrl;
+        mArtworkUrl = builder.mArtworkUrl;
+        mDuration = builder.mDuration;
+        mArtist = builder.mArtist;
     }
 
     public static Creator<Song> getCREATOR() {
@@ -44,56 +55,28 @@ public class Song implements Parcelable {
         return mId;
     }
 
-    public void setId(int id) {
-        mId = id;
-    }
-
     public String getGenre() {
         return mGenre;
-    }
-
-    public void setGenre(String genre) {
-        mGenre = genre;
     }
 
     public String getTitle() {
         return mTitle;
     }
 
-    public void setTitle(String title) {
-        mTitle = title;
-    }
-
     public String getStreamUrl() {
         return mStreamUrl;
-    }
-
-    public void setStreamUrl(String streamUrl) {
-        mStreamUrl = streamUrl;
     }
 
     public String getArtworkUrl() {
         return mArtworkUrl;
     }
 
-    public void setArtworkUrl(String artworkUrl) {
-        mArtworkUrl = artworkUrl;
-    }
-
     public int getDuration() {
         return mDuration;
     }
 
-    public void setDuration(int duration) {
-        mDuration = duration;
-    }
-
     public Artist getArtist() {
         return mArtist;
-    }
-
-    public void setArtist(Artist artist) {
-        mArtist = artist;
     }
 
     @Override
@@ -109,9 +92,73 @@ public class Song implements Parcelable {
         dest.writeString(mStreamUrl);
         dest.writeString(mArtworkUrl);
         dest.writeInt(mDuration);
+        dest.writeParcelable(mArtist, flags);
     }
 
-    public class SongComponet {
+    public static class Builder {
+        private int mId;
+        private String mGenre;
+        private String mTitle;
+        private String mStreamUrl;
+        private String mArtworkUrl;
+        private int mDuration;
+        private Artist mArtist;
+
+        public Builder() {
+        }
+
+        public Builder(int id, String genre, String title, String streamUrl, String artworkUrl,
+                int duration, Artist artist) {
+            mId = id;
+            mGenre = genre;
+            mTitle = title;
+            mStreamUrl = streamUrl;
+            mArtworkUrl = artworkUrl;
+            mDuration = duration;
+            mArtist = artist;
+        }
+
+        public Builder withId(int id) {
+            mId = id;
+            return this;
+        }
+
+        public Builder withGenre(String genre) {
+            mGenre = genre;
+            return this;
+        }
+
+        public Builder withTitle(String title) {
+            mTitle = title;
+            return this;
+        }
+
+        public Builder withStreamUrl(String streamUrl) {
+            mStreamUrl = streamUrl;
+            return this;
+        }
+
+        public Builder withArtworkUrl(String artworkUrl) {
+            mArtworkUrl = artworkUrl;
+            return this;
+        }
+
+        public Builder withDuration(int duration) {
+            mDuration = duration;
+            return this;
+        }
+
+        public Builder withArtist(Artist artist) {
+            mArtist = artist;
+            return this;
+        }
+
+        public Song build() {
+            return new Song(this);
+        }
+    }
+
+    public class SongComponent {
         public static final String ID = "id";
         public static final String DURATION = "duration";
         public static final String TITLE = "title";

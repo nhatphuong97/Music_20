@@ -13,7 +13,6 @@ import java.net.URL;
 public class GetDataUrl extends AsyncTask<String, Void, String> {
 
     private OnDataListener mOnDataListener;
-    private Exception mException;
 
     public GetDataUrl(OnDataListener onDataListener) {
         mOnDataListener = onDataListener;
@@ -47,7 +46,6 @@ public class GetDataUrl extends AsyncTask<String, Void, String> {
         httpURLConnection.setRequestMethod(Constant.METHOD_GET);
         httpURLConnection.setReadTimeout(Constant.TIME_READ);
         httpURLConnection.setConnectTimeout(Constant.TIME_CONNECT);
-        httpURLConnection.setDoOutput(true);
         httpURLConnection.connect();
         InputStream minputStream = httpURLConnection.getInputStream();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(minputStream));
