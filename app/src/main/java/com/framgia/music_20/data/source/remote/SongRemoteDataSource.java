@@ -4,8 +4,8 @@ import com.framgia.music_20.data.model.Artist;
 import com.framgia.music_20.data.model.MoreData;
 import com.framgia.music_20.data.model.Song;
 import com.framgia.music_20.data.source.DataCallBack;
-import com.framgia.music_20.data.source.SongDataSource;
 import com.framgia.music_20.data.source.OnDataListener;
+import com.framgia.music_20.data.source.SongDataSource;
 import com.framgia.music_20.utils.Constant;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +13,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ParseDataSong implements SongDataSource.RemoteDataSource {
-    private static ParseDataSong sInstance;
+public class SongRemoteDataSource implements SongDataSource.RemoteDataSource {
+    private static SongRemoteDataSource sInstance;
 
-    public static synchronized ParseDataSong getInstance() {
+    public static synchronized SongRemoteDataSource getInstance() {
         if (sInstance == null) {
-            sInstance = new ParseDataSong();
+            sInstance = new SongRemoteDataSource();
         }
         return sInstance;
     }
