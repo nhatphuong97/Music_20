@@ -1,6 +1,5 @@
 package com.framgia.music_20.screen.list_song;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,16 +10,16 @@ import com.bumptech.glide.Glide;
 import com.framgia.music_20.R;
 import com.framgia.music_20.data.model.Song;
 import de.hdodenhof.circleimageview.CircleImageView;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.Holder> {
 
     private List<Song> mSongs;
-    private Context mContext;
+    private ItemClickListener mItemClickListener;
 
-    public ListSongAdapter(Context context, List<Song> songList) {
-        mContext = context;
-        mSongs = songList;
+    public ListSongAdapter() {
+        mSongs = new ArrayList<>();
     }
 
     public void updateSong(List<Song> songList) {
@@ -31,16 +30,20 @@ public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.Holder
         notifyDataSetChanged();
     }
 
+    public void setItemClickListener(ItemClickListener itemClickListener) {
+        mItemClickListener = itemClickListener;
+    }
+
     @NonNull
     @Override
     public ListSongAdapter.Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_recycleview, parent, false);
-        return new Holder(view);
+        return new Holder(view, mItemClickListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ListSongAdapter.Holder holder, int position) {
+    public void onBindViewHolder(@NonNull ListSongAdapter.Holder holder, final int position) {
         holder.bindData(mSongs.get(position));
     }
 
@@ -49,27 +52,35 @@ public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.Holder
         return mSongs != null ? mSongs.size() : 0;
     }
 
-    public class Holder extends RecyclerView.ViewHolder {
-        CircleImageView imageAvatar;
-        TextView textName, textArtist;
+    public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private CircleImageView mCircleImageView;
+        private TextView mTextname, mTextArtist;
+        private ItemClickListener mItemClickListener;
 
-        Holder(View itemView) {
+        Holder(final View itemView, ItemClickListener itemClickListener) {
             super(itemView);
-            imageAvatar = itemView.findViewById(R.id.circle_image);
-            textName = itemView.findViewById(R.id.text_name);
-            textArtist = itemView.findViewById(R.id.text_artist);
+            mCircleImageView = itemView.findViewById(R.id.circle_image);
+            mTextname = itemView.findViewById(R.id.text_name);
+            mTextArtist = itemView.findViewById(R.id.text_artist);
+            mItemClickListener = itemClickListener;
+            itemView.setOnClickListener(this);
         }
 
         void bindData(Song song) {
-            textName.setText(song.getTitle());
-            textArtist.setText(song.getArtist().getUsername());
+            mTextname.setText(song.getTitle());
+            mTextArtist.setText(song.getArtist().getUsername());
             bindImage(song);
         }
 
         void bindImage(Song song) {
             Glide.with(itemView.getContext())
                     .load(song.getArtist().getAvatarUrl())
-                    .into(imageAvatar);
+                    .into(mCircleImageView);
+        }
+
+        @Override
+        public void onClick(View v) {
+            mItemClickListener.onClickListen(getAdapterPosition());
         }
     }
 }
