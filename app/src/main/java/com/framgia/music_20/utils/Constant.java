@@ -8,7 +8,6 @@ public final class Constant {
     public static final float MIN_SCALE = 0.25f;
     public static final int TIME_READ = 10000;
     public static final int TIME_CONNECT = 15000;
-    public static final int TIME_REQUEST = 15000;
     public static final String COLLECTION = "collection";
     public static final String USER = "user";
     public static final String NEXT_HREF = "next_href";
