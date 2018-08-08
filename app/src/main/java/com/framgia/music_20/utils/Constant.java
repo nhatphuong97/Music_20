@@ -21,11 +21,13 @@ public final class Constant {
     public static final String GENRES_AMBIENT = "&genres=ambient";
     public static final String GENRES_CLASSIC = "&genres=classic";
     public static final String LIMIT_50 = "&limit=50";
+    public static final String EXTRA_VALUE_LIST = "EXTRA_VALUE_LIST";
     public static final String ALL_LINK = "https://api.soundcloud.com/tracks"
             + "?client_id="
             + API_KEY
             + "&linked_partitioning=1"
             + LIMIT_50;
+    public static String EXTRA_POSITION = "EXTRA_POSITION";
 
     @IntDef({ Tab.TAB_HOME, Tab.TAB_MY_MUSIC, Tab.TAB_ARTIST, Tab.TAB_SEARCH })
     public @interface Tab {

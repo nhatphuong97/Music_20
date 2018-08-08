@@ -70,6 +70,7 @@ public class ListSongFragment extends Fragment
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_back:
+                getParentFragment().getChildFragmentManager().popBackStack();
                 break;
         }
     }
