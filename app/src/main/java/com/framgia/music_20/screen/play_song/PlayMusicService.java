@@ -21,6 +21,8 @@ import java.util.List;
 
 public class PlayMusicService extends Service implements MediaPlayer.OnPreparedListener {
 
+    private static final int ID = 1234;
+
     public List<Song> mSongs;
     public int mPosition;
     public MediaPlayer mMediaPlayer;
@@ -76,10 +78,12 @@ public class PlayMusicService extends Service implements MediaPlayer.OnPreparedL
 
     public void pauseSong() {
         mMediaPlayer.pause();
+        stopForeground(true);
     }
 
     public void playSong() {
         mMediaPlayer.start();
+        startForeground();
     }
 
     public String getSongName() {
@@ -124,7 +128,6 @@ public class PlayMusicService extends Service implements MediaPlayer.OnPreparedL
     }
 
     public void startForeground() {
-        int ID = 1234;
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendIntent = PendingIntent.getActivity(this, 0, intent, 0);
@@ -137,9 +140,7 @@ public class PlayMusicService extends Service implements MediaPlayer.OnPreparedL
         builder.setContentTitle("");
         builder.setContentText("");
         Notification notification = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            notification = builder.build();
-        }
+        notification = builder.build();
         startForeground(ID, notification);
     }
 

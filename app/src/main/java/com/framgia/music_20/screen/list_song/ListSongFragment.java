@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import com.framgia.music_20.data.model.MoreData;
 import com.framgia.music_20.data.model.Song;
 import com.framgia.music_20.data.repository.SongRepository;
 import com.framgia.music_20.data.source.remote.SongRemoteDataSource;
+import com.framgia.music_20.screen.play_song.PlayMusicFragment;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,5 +90,11 @@ public class ListSongFragment extends Fragment
 
     @Override
     public void onClickListen(int position) {
+        Fragment fragment = PlayMusicFragment.getGenreFragment(mSongs, position);
+        FragmentTransaction transaction =
+                getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }
