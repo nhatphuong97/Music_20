@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -16,7 +18,6 @@ public class MainActivity extends AppCompatActivity
 
     BottomNavigationView mNavigationView = null;
     private ViewPager mViewPager;
-    private MainActivityAdapter mActivityAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +30,8 @@ public class MainActivity extends AppCompatActivity
         mNavigationView = findViewById(R.id.navigation);
         mNavigationView.setOnNavigationItemSelectedListener(this);
         mViewPager = findViewById(R.id.viewpager_home);
-        mActivityAdapter = new MainActivityAdapter(getSupportFragmentManager());
-        mViewPager.setAdapter(mActivityAdapter);
+        MainActivityAdapter activityAdapter = new MainActivityAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(activityAdapter);
         mViewPager.setOnPageChangeListener(this);
     }
 
@@ -70,5 +71,19 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+    @Override
+    public void onBackPressed() {
+        FragmentManager fm = getSupportFragmentManager();
+        for (Fragment frag : fm.getFragments()) {
+            if (frag.isVisible()) {
+                FragmentManager childFm = frag.getChildFragmentManager();
+                if (childFm.getBackStackEntryCount() > 0) {
+                    childFm.popBackStack();
+                    return;
+                }
+            }
+        }
+        super.onBackPressed();
     }
 }
