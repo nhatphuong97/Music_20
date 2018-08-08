@@ -25,5 +25,12 @@
     <dimen name="dp_390">390dp</dimen>
     <dimen name="sp_20">20sp</dimen>
     <dimen name="dp_500">500dp</dimen>
+    <dimen name="dp_40">40dp</dimen>
+    <dimen name="dp_5">5dp</dimen>
+    <dimen name="sp_15">15sp</dimen>
+    <dimen name="dp_240">240dp</dimen>
+    <dimen name="dp_200">200dp</dimen>
+    <dimen name="dp_80">80dp</dimen>
     <dimen name="dp_520">520dp</dimen>
+    <dimen name="dp_120">120dp</dimen>
 </resources>
