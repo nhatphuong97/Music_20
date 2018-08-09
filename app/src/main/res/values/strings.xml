@@ -4,10 +4,12 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_mymusic">My Music</string>
+    <string name="title_hint_search">Input your key</string>
     <string name="title_Artist">Artist</string>
     <string name="title_search">Search</string>
     <string name="text_hello">Music Connect Everything</string>
     <string name="text_top">Top Trending</string>
     <string name="text_type">Type Audio :</string>
     <string name="type_genre">Type genre :</string>
+    <string name="text_data_null">Data null</string>
 </resources>

@@ -74,6 +74,6 @@ public class SongRemoteDataSource implements SongDataSource.RemoteDataSource {
             public void onFail(Exception e) {
                 callBack.onFail(e);
             }
-        }).execute(Constant.ALL_LINK + genre);
+        }).execute(genre);
     }
 }
