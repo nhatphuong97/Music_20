@@ -12,7 +12,7 @@ public final class Constant {
     public static final String COLLECTION = "collection";
     public static final String USER = "user";
     public static final String NEXT_HREF = "next_href";
-    public static final String API_KEY = BuildConfig.API_KEY;
+    public static final String API_KEY = "?client_id=" + BuildConfig.API_KEY;
     public static final String METHOD_GET = "GET";
     public static final String GENRES_COUNTRY = "&genres=country";
     public static final String GENRES_ROCK = "&genres=rock";
@@ -23,7 +23,6 @@ public final class Constant {
     public static final String LIMIT_50 = "&limit=50";
     public static final String EXTRA_VALUE_LIST = "EXTRA_VALUE_LIST";
     public static final String ALL_LINK = "https://api.soundcloud.com/tracks"
-            + "?client_id="
             + API_KEY
             + "&linked_partitioning=1"
             + LIMIT_50;
