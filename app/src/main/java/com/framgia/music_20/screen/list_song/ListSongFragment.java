@@ -96,7 +96,7 @@ public class ListSongFragment extends Fragment
 
     @Override
     public void onClickListen(int position) {
-        Fragment fragment = PlayMusicFragment.getGenreFragment(mSongs, position);
+        Fragment fragment = PlayMusicFragment.getGenreFragment(mSongs, position,false);
         FragmentTransaction transaction =
                 getActivity().getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.container, fragment);

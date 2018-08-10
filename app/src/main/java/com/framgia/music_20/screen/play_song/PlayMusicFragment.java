@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.framgia.music_20.R;
 import com.framgia.music_20.data.model.Song;
@@ -66,11 +67,12 @@ public class PlayMusicFragment extends Fragment
         }
     };
 
-    public static Fragment getGenreFragment(List<Song> songList, int position) {
+    public static Fragment getGenreFragment(List<Song> songList, int position, boolean isCheck) {
         PlayMusicFragment listSongFragment = new PlayMusicFragment();
         Bundle args = new Bundle();
         args.putParcelableArrayList(ARGUMENT_GENRE, (ArrayList<? extends Parcelable>) songList);
         args.putInt(Constant.EXTRA_POSITION, position);
+        args.putBoolean(Constant.EXTRA_CHECK_OFFLINE_ONLINE, isCheck);
         listSongFragment.setArguments(args);
         return listSongFragment;
     }
@@ -111,11 +113,17 @@ public class PlayMusicFragment extends Fragment
     }
 
     private void initData() {
-        List<Song> songs = getArguments().getParcelableArrayList(ARGUMENT_GENRE);
-        int position = getArguments().getInt(Constant.EXTRA_POSITION);
-        Intent intent = PlayMusicService.newInstance(getActivity(), songs, position);
-        getActivity().startService(intent);
-        getActivity().bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
+        Bundle bundle = getArguments();
+        List<Song> songs = bundle.getParcelableArrayList(ARGUMENT_GENRE);
+        int position = bundle.getInt(Constant.EXTRA_POSITION);
+        boolean isCheck = bundle.getBoolean(Constant.EXTRA_CHECK_OFFLINE_ONLINE);
+        if (bundle != null) {
+            Intent intent = PlayMusicService.newInstance(getActivity(), songs, position, isCheck);
+            getActivity().startService(intent);
+            getActivity().bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
+        } else {
+            Toast.makeText(mPlayMusicService, R.string.text_data_null, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void setView() {

@@ -26,13 +26,16 @@ public class PlayMusicService extends Service implements MediaPlayer.OnPreparedL
     public List<Song> mSongs;
     public int mPosition;
     public MediaPlayer mMediaPlayer;
+    public boolean mIsCheck;
     private IBinder mIBinder = new MusicBinder();
 
-    public static Intent newInstance(Context context, List<Song> songList, int position) {
+    public static Intent newInstance(Context context, List<Song> songList, int position,
+            boolean isCheck) {
         Intent intent = new Intent(context, PlayMusicService.class);
         intent.putParcelableArrayListExtra(Constant.EXTRA_VALUE_LIST,
                 (ArrayList<? extends Parcelable>) songList);
         intent.putExtra(Constant.EXTRA_POSITION, position);
+        intent.putExtra(Constant.EXTRA_CHECK_OFFLINE_ONLINE, isCheck);
         return intent;
     }
 
@@ -54,18 +57,23 @@ public class PlayMusicService extends Service implements MediaPlayer.OnPreparedL
         }
         mSongs = intent.getParcelableArrayListExtra(Constant.EXTRA_VALUE_LIST);
         mPosition = intent.getIntExtra(Constant.EXTRA_POSITION, 0);
+        mIsCheck = intent.getBooleanExtra(Constant.EXTRA_CHECK_OFFLINE_ONLINE, false);
         if (mSongs != null) {
-            initMediaPlayer();
+            initMediaPlayer(mIsCheck);
         }
         return START_REDELIVER_INTENT;
     }
 
-    public void initMediaPlayer() {
+    public void initMediaPlayer(boolean isCheck) {
         mMediaPlayer = new MediaPlayer();
         mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mMediaPlayer.reset();
         try {
-            mMediaPlayer.setDataSource(mSongs.get(mPosition).getStreamUrl() + Constant.API_KEY);
+            if (!isCheck) {
+                mMediaPlayer.setDataSource(mSongs.get(mPosition).getStreamUrl() + Constant.API_KEY);
+            } else {
+                mMediaPlayer.setDataSource(mSongs.get(mPosition).getStreamUrl());
+            }
             mMediaPlayer.prepareAsync();
         } catch (IOException e) {
             stopSelf();
@@ -106,7 +114,7 @@ public class PlayMusicService extends Service implements MediaPlayer.OnPreparedL
             mPosition++;
         }
         mMediaPlayer.reset();
-        initMediaPlayer();
+        initMediaPlayer(mIsCheck);
     }
 
     public void previousSong() {
@@ -116,7 +124,7 @@ public class PlayMusicService extends Service implements MediaPlayer.OnPreparedL
             mPosition--;
         }
         mMediaPlayer.reset();
-        initMediaPlayer();
+        initMediaPlayer(mIsCheck);
     }
 
     public String getLinkDownLoad() {
@@ -124,7 +132,11 @@ public class PlayMusicService extends Service implements MediaPlayer.OnPreparedL
     }
 
     public int getDuration() {
-        return mSongs.get(mPosition).getDuration();
+        if (mIsCheck) {
+            return mMediaPlayer.getDuration();
+        } else {
+            return mSongs.get(mPosition).getDuration();
+        }
     }
 
     public void startForeground() {
