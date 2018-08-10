@@ -8,6 +8,6 @@ public interface SongDataSource {
     }
 
     interface LocalDataSource extends SongDataSource {
-
+        void getSongByGenreLocal(DataCallbackLocate callBack);
     }
 }

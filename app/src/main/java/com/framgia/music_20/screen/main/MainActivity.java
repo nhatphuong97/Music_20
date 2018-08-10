@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity
     public void onPageScrollStateChanged(int state) {
 
     }
+
     @Override
     public void onBackPressed() {
         FragmentManager fm = getSupportFragmentManager();

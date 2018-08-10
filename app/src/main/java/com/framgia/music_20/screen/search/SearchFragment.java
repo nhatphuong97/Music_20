@@ -20,6 +20,8 @@ import com.framgia.music_20.R;
 import com.framgia.music_20.data.model.MoreData;
 import com.framgia.music_20.data.model.Song;
 import com.framgia.music_20.data.repository.SongRepository;
+import com.framgia.music_20.data.source.local.SongLocalDataSource;
+import com.framgia.music_20.data.source.local.contentData.ContentDataLocal;
 import com.framgia.music_20.data.source.remote.SongRemoteDataSource;
 import com.framgia.music_20.screen.list_song.ItemClickListener;
 import com.framgia.music_20.screen.play_song.PlayMusicFragment;
@@ -63,7 +65,8 @@ public class SearchFragment extends Fragment
         RecyclerView recyclerViewSearch = view.findViewById(R.id.recycle_search);
 
         mSearchAdapter = new SearchAdapter();
-        recyclerViewSearch.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewSearch.setLayoutManager(
+                new LinearLayoutManager(getContext().getApplicationContext()));
         recyclerViewSearch.setAdapter(mSearchAdapter);
 
         mSearchAdapter.setItemClickListener(this);
@@ -71,8 +74,11 @@ public class SearchFragment extends Fragment
     }
 
     public void initData() {
+        SongLocalDataSource songLocalDataSource = SongLocalDataSource.getInstance(
+                new ContentDataLocal(getContext().getApplicationContext()));
+        SongRemoteDataSource songRemoteDataSource = SongRemoteDataSource.getInstance();
         SongRepository songRepository =
-                SongRepository.getInstance(SongRemoteDataSource.getInstance());
+                SongRepository.getInstance(songRemoteDataSource, songLocalDataSource);
         mSearchSongPresenter = new SearchSongPresenter(songRepository);
         mSearchSongPresenter.setView(this);
     }
@@ -103,7 +109,7 @@ public class SearchFragment extends Fragment
         if (data != null) {
             mSongs = data.getSongArrayList();
             mSearchAdapter.updateSong(mSongs);
-        }else {
+        } else {
             Toast.makeText(getContext(), R.string.text_data_null, Toast.LENGTH_SHORT).show();
         }
     }
