@@ -133,12 +133,12 @@ public class PlayMusicService extends Service implements MediaPlayer.OnPreparedL
         PendingIntent pendIntent = PendingIntent.getActivity(this, 0, intent, 0);
         Notification.Builder builder = new Notification.Builder(getBaseContext());
         builder.setContentIntent(pendIntent);
-        builder.setSmallIcon(R.drawable.ic_launcher_background);
-        builder.setTicker("");
+        builder.setSmallIcon(R.drawable.ic_icon_app);
+        builder.setTicker(mSongs.get(mPosition).getArtworkUrl());
         builder.setWhen(System.currentTimeMillis());
         builder.setAutoCancel(false);
-        builder.setContentTitle("");
-        builder.setContentText("");
+        builder.setContentTitle(mSongs.get(mPosition).getTitle());
+        builder.setContentText(mSongs.get(mPosition).getArtist().getUsername());
         Notification notification = null;
         notification = builder.build();
         startForeground(ID, notification);

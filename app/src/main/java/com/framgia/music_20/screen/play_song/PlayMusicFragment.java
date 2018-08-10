@@ -1,10 +1,12 @@
 package com.framgia.music_20.screen.play_song;
 
+import android.Manifest;
 import android.app.DownloadManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -13,7 +15,9 @@ import android.os.IBinder;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +43,7 @@ public class PlayMusicFragment extends Fragment
     private static final String PATH_DOWNLOAD = "file://sdcard/Download/";
     private static final String PATH = "/";
     private static final String PATH_MP3 = ".mp3";
+    private static final int REQUEST_CODE = 1;
 
     public boolean mIsBound;
     private ImageButton mButtonPlay;
@@ -154,6 +159,16 @@ public class PlayMusicFragment extends Fragment
         Glide.with(getContext()).load(mPlayMusicService.getUserAvatar()).into(mImageAvata);
     }
 
+    private void checkStoragePermisson(String link) {
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            downloadSong(link);
+        } else {
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE }, REQUEST_CODE);
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -161,7 +176,7 @@ public class PlayMusicFragment extends Fragment
                 getActivity().getSupportFragmentManager().popBackStack();
                 break;
             case R.id.button_download:
-                downloadSong(mPlayMusicService.getLinkDownLoad());
+                checkStoragePermisson(mPlayMusicService.getLinkDownLoad());
                 break;
             case R.id.button_loop_all:
                 break;
