@@ -103,7 +103,7 @@ public class SearchFragment extends Fragment
         if (data != null) {
             mSongs = data.getSongArrayList();
             mSearchAdapter.updateSong(mSongs);
-        } else {
+        }else {
             Toast.makeText(getContext(), R.string.text_data_null, Toast.LENGTH_SHORT).show();
         }
     }
