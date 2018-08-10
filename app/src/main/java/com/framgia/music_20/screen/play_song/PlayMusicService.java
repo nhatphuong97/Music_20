@@ -57,7 +57,7 @@ public class PlayMusicService extends Service implements MediaPlayer.OnPreparedL
         if (mSongs != null) {
             initMediaPlayer();
         }
-        return START_STICKY;
+        return START_REDELIVER_INTENT;
     }
 
     public void initMediaPlayer() {

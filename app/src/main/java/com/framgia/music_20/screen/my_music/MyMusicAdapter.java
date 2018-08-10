@@ -1,4 +1,4 @@
-package com.framgia.music_20.screen.list_song;
+package com.framgia.music_20.screen.my_music;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -9,16 +9,16 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.framgia.music_20.R;
 import com.framgia.music_20.data.model.Song;
+import com.framgia.music_20.screen.list_song.ItemClickListener;
 import de.hdodenhof.circleimageview.CircleImageView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.Holder> {
-
+public class MyMusicAdapter extends RecyclerView.Adapter<MyMusicAdapter.Holder> {
     private List<Song> mSongs;
     private ItemClickListener mItemClickListener;
 
-    ListSongAdapter() {
+    MyMusicAdapter() {
         mSongs = new ArrayList<>();
     }
 
@@ -36,14 +36,14 @@ public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.Holder
 
     @NonNull
     @Override
-    public ListSongAdapter.Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyMusicAdapter.Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_recycleview, parent, false);
         return new Holder(view, mItemClickListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ListSongAdapter.Holder holder, final int position) {
+    public void onBindViewHolder(@NonNull MyMusicAdapter.Holder holder, int position) {
         holder.bindData(mSongs.get(position));
     }
 
@@ -73,9 +73,7 @@ public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.Holder
         }
 
         void bindImage(Song song) {
-            Glide.with(itemView.getContext())
-                    .load(song.getArtist().getAvatarUrl())
-                    .into(mCircleImageView);
+            Glide.with(itemView.getContext()).load(R.drawable.ic_icon_app).into(mCircleImageView);
         }
 
         @Override

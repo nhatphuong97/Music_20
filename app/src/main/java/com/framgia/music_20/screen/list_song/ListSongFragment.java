@@ -16,6 +16,8 @@ import com.framgia.music_20.R;
 import com.framgia.music_20.data.model.MoreData;
 import com.framgia.music_20.data.model.Song;
 import com.framgia.music_20.data.repository.SongRepository;
+import com.framgia.music_20.data.source.local.SongLocalDataSource;
+import com.framgia.music_20.data.source.local.contentData.ContentDataLocal;
 import com.framgia.music_20.data.source.remote.SongRemoteDataSource;
 import com.framgia.music_20.screen.play_song.PlayMusicFragment;
 import java.util.ArrayList;
@@ -61,8 +63,12 @@ public class ListSongFragment extends Fragment
     }
 
     public void initData() {
+        SongLocalDataSource songLocalDataSource = SongLocalDataSource.getInstance(
+                new ContentDataLocal(getContext().getApplicationContext()));
+        SongRemoteDataSource songRemoteDataSource = SongRemoteDataSource.getInstance();
         SongRepository songRepository =
-                SongRepository.getInstance(SongRemoteDataSource.getInstance());
+                SongRepository.getInstance(songRemoteDataSource, songLocalDataSource);
+
         ListSongPresenter listSongPresenter = new ListSongPresenter(songRepository);
         listSongPresenter.setView(this);
         listSongPresenter.getSongsByGenre(mGenre);

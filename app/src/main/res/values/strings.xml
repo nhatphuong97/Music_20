@@ -12,4 +12,5 @@
     <string name="text_type">Type Audio :</string>
     <string name="type_genre">Type genre :</string>
     <string name="text_data_null">Data null</string>
+    <string name="text_deny">Permission Denny</string>
 </resources>
