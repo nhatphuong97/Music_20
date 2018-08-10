@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ import com.framgia.music_20.data.source.local.SongLocalDataSource;
 import com.framgia.music_20.data.source.local.contentData.ContentDataLocal;
 import com.framgia.music_20.data.source.remote.SongRemoteDataSource;
 import com.framgia.music_20.screen.list_song.ItemClickListener;
+import com.framgia.music_20.screen.play_song.PlayMusicFragment;
 import java.util.List;
 
 public class MyMusicFragment extends Fragment implements MyMusicContract.View, ItemClickListener {
@@ -28,6 +30,7 @@ public class MyMusicFragment extends Fragment implements MyMusicContract.View, I
     private static final int REQUEST_CODE = 1;
     private MyMusicAdapter mMyMusicAdapter;
     private MyMusicPresenter mMyMusicPresenter;
+    private List<Song> mSongs;
 
     public static MyMusicFragment newInstance() {
         MyMusicFragment fragment = new MyMusicFragment();
@@ -79,7 +82,8 @@ public class MyMusicFragment extends Fragment implements MyMusicContract.View, I
     @Override
     public void getListSongSucces(List<Song> songList) {
         if (songList != null) {
-            mMyMusicAdapter.updateSong(songList);
+            mSongs = songList;
+            mMyMusicAdapter.updateSong(mSongs);
         } else {
             Toast.makeText(getContext().getApplicationContext(), R.string.text_data_null,
                     Toast.LENGTH_SHORT).show();
@@ -94,7 +98,12 @@ public class MyMusicFragment extends Fragment implements MyMusicContract.View, I
 
     @Override
     public void onClickListen(int position) {
-        //TODO WILL UPDATE LATER
+        Fragment fragment = PlayMusicFragment.getGenreFragment(mSongs, position, true);
+        FragmentTransaction transaction =
+                getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     @Override

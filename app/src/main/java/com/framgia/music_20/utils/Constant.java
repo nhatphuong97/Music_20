@@ -25,6 +25,7 @@ public final class Constant {
     public static final String GENRES_AMBIENT = ALL_LINK + "&genres=ambient" + LIMIT_50;
     public static final String GENRES_CLASSIC = ALL_LINK + "&genres=classic" + LIMIT_50;
     public static String EXTRA_POSITION = "EXTRA_POSITION";
+    public static String EXTRA_CHECK_OFFLINE_ONLINE = "EXTRA_CHECK_OFFLINE_ONLINE";
 
     @IntDef({ Tab.TAB_HOME, Tab.TAB_MY_MUSIC, Tab.TAB_ARTIST, Tab.TAB_SEARCH })
     public @interface Tab {
