@@ -3,6 +3,7 @@ package com.framgia.music_20.screen.list_song;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import com.framgia.music_20.R;
@@ -78,7 +81,7 @@ public class ListSongFragment extends Fragment
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_back:
-                getParentFragment().getChildFragmentManager().popBackStack();
+                getActivity().getSupportFragmentManager().popBackStack();
                 break;
         }
     }
@@ -96,9 +99,10 @@ public class ListSongFragment extends Fragment
 
     @Override
     public void onClickListen(int position) {
-        Fragment fragment = PlayMusicFragment.getGenreFragment(mSongs, position,false);
+        Fragment fragment = PlayMusicFragment.getGenreFragment(mSongs, position, false);
         FragmentTransaction transaction =
                 getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down);
         transaction.add(R.id.container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();

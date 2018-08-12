@@ -4,7 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
-import com.framgia.music_20.screen.artist.ArtistFragment;
 import com.framgia.music_20.screen.home.HomeFragment;
 import com.framgia.music_20.screen.my_music.MyMusicFragment;
 import com.framgia.music_20.screen.search.SearchFragment;
@@ -12,7 +11,7 @@ import com.framgia.music_20.utils.Constant;
 
 public class MainActivityAdapter extends FragmentPagerAdapter {
 
-    private static int TAB_COUNT = 4;
+    private static final int TAB_COUNT = 3;
 
     public MainActivityAdapter(FragmentManager fm) {
         super(fm);
@@ -25,8 +24,6 @@ public class MainActivityAdapter extends FragmentPagerAdapter {
                 return HomeFragment.newInstance();
             case Constant.Tab.TAB_MY_MUSIC:
                 return MyMusicFragment.newInstance();
-            case Constant.Tab.TAB_ARTIST:
-                return ArtistFragment.newInstance();
             case Constant.Tab.TAB_SEARCH:
                 return SearchFragment.newInstance();
             default:

@@ -13,4 +13,5 @@
     <string name="type_genre">Type genre :</string>
     <string name="text_data_null">Data null</string>
     <string name="text_deny">Permission Denny</string>
+    <string name="text_connection">There is no connection !</string>
 </resources>

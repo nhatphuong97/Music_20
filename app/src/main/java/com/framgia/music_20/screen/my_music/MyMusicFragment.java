@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -44,6 +45,7 @@ public class MyMusicFragment extends Fragment implements MyMusicContract.View, I
         View view = inflater.inflate(R.layout.layout_mymusic, container, false);
         initView(view);
         checkStoragePermissions();
+        swipeRefresh(view);
         return view;
     }
 
@@ -101,9 +103,22 @@ public class MyMusicFragment extends Fragment implements MyMusicContract.View, I
         Fragment fragment = PlayMusicFragment.getGenreFragment(mSongs, position, true);
         FragmentTransaction transaction =
                 getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down);
         transaction.add(R.id.container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    public void swipeRefresh(View view) {
+        final SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.swipe_layout);
+        swipeRefreshLayout.setColorSchemeResources(R.color.color_black10);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(false);
+                initData();
+            }
+        });
     }
 
     @Override

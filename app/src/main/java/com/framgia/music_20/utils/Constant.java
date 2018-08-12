@@ -27,11 +27,11 @@ public final class Constant {
     public static String EXTRA_POSITION = "EXTRA_POSITION";
     public static String EXTRA_CHECK_OFFLINE_ONLINE = "EXTRA_CHECK_OFFLINE_ONLINE";
 
-    @IntDef({ Tab.TAB_HOME, Tab.TAB_MY_MUSIC, Tab.TAB_ARTIST, Tab.TAB_SEARCH })
+    @IntDef({ Tab.TAB_HOME, Tab.TAB_MY_MUSIC, Tab.TAB_SEARCH, Tab.TAB_ARTIST })
     public @interface Tab {
         int TAB_HOME = 0;
         int TAB_MY_MUSIC = 1;
-        int TAB_ARTIST = 2;
-        int TAB_SEARCH = 3;
+        int TAB_SEARCH = 2;
+        int TAB_ARTIST = 3;
     }
 }

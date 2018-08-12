@@ -99,6 +99,7 @@ public class SearchFragment extends Fragment
         Fragment fragment = PlayMusicFragment.getGenreFragment(mSongs, position, false);
         FragmentTransaction transaction =
                 getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down);
         transaction.add(R.id.container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();

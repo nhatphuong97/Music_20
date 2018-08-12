@@ -44,9 +44,6 @@ public class MainActivity extends AppCompatActivity
             case R.id.item_mymusic:
                 mViewPager.setCurrentItem(Constant.Tab.TAB_MY_MUSIC);
                 return true;
-            case R.id.item_artist:
-                mViewPager.setCurrentItem(Constant.Tab.TAB_ARTIST);
-                return true;
             case R.id.item_search:
                 mViewPager.setCurrentItem(Constant.Tab.TAB_SEARCH);
                 return true;

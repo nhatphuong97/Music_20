@@ -75,6 +75,7 @@ public class PlayMusicService extends Service implements MediaPlayer.OnPreparedL
                 mMediaPlayer.setDataSource(mSongs.get(mPosition).getStreamUrl());
             }
             mMediaPlayer.prepareAsync();
+            mMediaPlayer.setLooping(true);
         } catch (IOException e) {
             stopSelf();
         }

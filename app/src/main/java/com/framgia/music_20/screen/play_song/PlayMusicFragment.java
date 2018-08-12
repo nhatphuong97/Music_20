@@ -24,7 +24,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.framgia.music_20.R;
 import com.framgia.music_20.data.model.Song;
@@ -52,6 +51,11 @@ public class PlayMusicFragment extends Fragment
     private TextView mTextSong, mTextArtist, mTextCurrent, mTextDuration;
     private CircleImageView mImageAvata;
     private PlayMusicService mPlayMusicService;
+    private boolean mIsCheck;
+    private ImageButton mButtonShuffle;
+    private ImageButton mButtonLoopAll;
+    private ImageButton mButtonDownload;
+
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -82,8 +86,8 @@ public class PlayMusicFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_play_music, container, false);
-        initData();
         initView(view);
+        initData();
         return view;
     }
 
@@ -92,37 +96,40 @@ public class PlayMusicFragment extends Fragment
         mTextSong = view.findViewById(R.id.text_song_name);
         mTextArtist = view.findViewById(R.id.text_artist_name);
         ImageButton buttonExit = view.findViewById(R.id.button_exit);
-        ImageButton buttonDownLoad = view.findViewById(R.id.button_download);
-        ImageButton buttonLoopAll = view.findViewById(R.id.button_loop_all);
+        mButtonDownload = view.findViewById(R.id.button_download);
+        mButtonLoopAll = view.findViewById(R.id.button_loop_all);
         ImageButton buttonNext = view.findViewById(R.id.button_next);
         mButtonPlay = view.findViewById(R.id.button_play);
         ImageButton buttonPrevious = view.findViewById(R.id.button_previous);
-        ImageButton buttonShuffle = view.findViewById(R.id.button_shuffle);
+        mButtonShuffle = view.findViewById(R.id.button_shuffle);
         mTextCurrent = view.findViewById(R.id.text_current_position);
         mTextDuration = view.findViewById(R.id.text_duration);
         mSeekBar = view.findViewById(R.id.seek_bar);
 
         buttonExit.setOnClickListener(this);
-        buttonDownLoad.setOnClickListener(this);
-        buttonLoopAll.setOnClickListener(this);
+        mButtonDownload.setOnClickListener(this);
+        mButtonLoopAll.setOnClickListener(this);
         buttonPrevious.setOnClickListener(this);
         mButtonPlay.setOnClickListener(this);
         buttonNext.setOnClickListener(this);
-        buttonShuffle.setOnClickListener(this);
+        mButtonShuffle.setOnClickListener(this);
         mSeekBar.setOnSeekBarChangeListener(this);
     }
 
     private void initData() {
         Bundle bundle = getArguments();
-        List<Song> songs = bundle.getParcelableArrayList(ARGUMENT_GENRE);
-        int position = bundle.getInt(Constant.EXTRA_POSITION);
-        boolean isCheck = bundle.getBoolean(Constant.EXTRA_CHECK_OFFLINE_ONLINE);
         if (bundle != null) {
-            Intent intent = PlayMusicService.newInstance(getActivity(), songs, position, isCheck);
+            List<Song> songs = bundle.getParcelableArrayList(ARGUMENT_GENRE);
+            int position = bundle.getInt(Constant.EXTRA_POSITION);
+            mIsCheck = bundle.getBoolean(Constant.EXTRA_CHECK_OFFLINE_ONLINE);
+            Intent intent = PlayMusicService.newInstance(getActivity(), songs, position, mIsCheck);
             getActivity().startService(intent);
             getActivity().bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
-        } else {
-            Toast.makeText(mPlayMusicService, R.string.text_data_null, Toast.LENGTH_SHORT).show();
+            if (mIsCheck) {
+                mButtonDownload.setVisibility(View.GONE);
+            } else {
+                mButtonDownload.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -164,7 +171,11 @@ public class PlayMusicFragment extends Fragment
     }
 
     public void loadImageSong() {
-        Glide.with(getContext()).load(mPlayMusicService.getUserAvatar()).into(mImageAvata);
+        if (mIsCheck) {
+            Glide.with(getContext()).load(R.drawable.ic_icon_app);
+        } else {
+            Glide.with(getContext()).load(mPlayMusicService.getUserAvatar()).into(mImageAvata);
+        }
     }
 
     private void checkStoragePermisson(String link) {
@@ -187,6 +198,7 @@ public class PlayMusicFragment extends Fragment
                 checkStoragePermisson(mPlayMusicService.getLinkDownLoad());
                 break;
             case R.id.button_loop_all:
+                checkLoopAll();
                 break;
             case R.id.button_previous:
                 mPlayMusicService.previousSong();
@@ -215,11 +227,18 @@ public class PlayMusicFragment extends Fragment
         if (mPlayMusicService.isPlaying()) {
             mPlayMusicService.pauseSong();
             mButtonPlay.setImageResource(R.drawable.ic_play);
-            setView();
         } else {
             mPlayMusicService.playSong();
             mButtonPlay.setImageResource(R.drawable.ic_pause);
-            setView();
+        }
+        setView();
+    }
+
+    private void checkLoopAll() {
+        if (!mPlayMusicService.mMediaPlayer.isLooping()) {
+            mButtonLoopAll.setColorFilter(R.color.colorAccent);
+        } else {
+            mButtonLoopAll.setColorFilter(R.color.color_black10);
         }
     }
 

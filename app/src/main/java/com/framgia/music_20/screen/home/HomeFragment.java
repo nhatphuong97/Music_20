@@ -40,6 +40,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         ImageButton buttonRock = view.findViewById(R.id.button_rock);
         ImageButton buttonAmbient = view.findViewById(R.id.button_ambient);
         ImageButton buttonCountry = view.findViewById(R.id.button_country);
+
         buttonMusic.setOnClickListener(this);
         buttonAudio.setOnClickListener(this);
         buttonClassic.setOnClickListener(this);
@@ -71,8 +72,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 fragment = ListSongFragment.getGenreFragment(Constant.GENRES_COUNTRY);
                 break;
         }
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_content_home, fragment);
+        FragmentTransaction transaction =
+                getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down);
+        transaction.add(R.id.container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
