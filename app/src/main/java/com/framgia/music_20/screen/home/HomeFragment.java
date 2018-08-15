@@ -72,10 +72,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 fragment = ListSongFragment.getGenreFragment(Constant.GENRES_COUNTRY);
                 break;
         }
-        FragmentTransaction transaction =
-                getActivity().getSupportFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down);
-        transaction.add(R.id.container, fragment);
+        transaction.add(R.id.frame_content_home, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }

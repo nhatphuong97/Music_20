@@ -24,6 +24,7 @@ import com.framgia.music_20.data.source.local.contentData.ContentDataLocal;
 import com.framgia.music_20.data.source.remote.SongRemoteDataSource;
 import com.framgia.music_20.screen.list_song.ItemClickListener;
 import com.framgia.music_20.screen.play_song.PlayMusicFragment;
+import com.framgia.music_20.utils.Constant;
 import java.util.List;
 
 public class MyMusicFragment extends Fragment implements MyMusicContract.View, ItemClickListener {
@@ -34,8 +35,7 @@ public class MyMusicFragment extends Fragment implements MyMusicContract.View, I
     private List<Song> mSongs;
 
     public static MyMusicFragment newInstance() {
-        MyMusicFragment fragment = new MyMusicFragment();
-        return fragment;
+        return new MyMusicFragment();
     }
 
     @Nullable
@@ -104,7 +104,7 @@ public class MyMusicFragment extends Fragment implements MyMusicContract.View, I
         FragmentTransaction transaction =
                 getActivity().getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down);
-        transaction.add(R.id.container, fragment);
+        transaction.add(R.id.container, fragment, Constant.TAG_PLAY_MUSIC);
         transaction.addToBackStack(null);
         transaction.commit();
     }
@@ -116,7 +116,7 @@ public class MyMusicFragment extends Fragment implements MyMusicContract.View, I
             @Override
             public void onRefresh() {
                 swipeRefreshLayout.setRefreshing(false);
-                initData();
+                checkStoragePermissions();
             }
         });
     }

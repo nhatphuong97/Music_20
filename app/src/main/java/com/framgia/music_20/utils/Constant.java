@@ -5,7 +5,9 @@ import com.framgia.music_20.BuildConfig;
 
 public final class Constant {
 
+
     public static final int TIME = 2000;
+    public static final int TIME_RESPONE = 1000;
     public static final int TIME_READ = 10000;
     public static final int TIME_CONNECT = 15000;
     public static final String COLLECTION = "collection";
@@ -24,8 +26,15 @@ public final class Constant {
     public static final String GENRES_AUDIO = ALL_LINK + "&genres=audio" + LIMIT_50;
     public static final String GENRES_AMBIENT = ALL_LINK + "&genres=ambient" + LIMIT_50;
     public static final String GENRES_CLASSIC = ALL_LINK + "&genres=classic" + LIMIT_50;
+    public static final String TAG_PLAY_MUSIC ="layout_play_music";
     public static String EXTRA_POSITION = "EXTRA_POSITION";
     public static String EXTRA_CHECK_OFFLINE_ONLINE = "EXTRA_CHECK_OFFLINE_ONLINE";
+
+    public static final String ACTION_PLAY = "com.framgia.music_20.ACTION_PLAY";
+    public static final String ACTION_PAUSE = "com.framgia.music_20.ACTION_PAUSE";
+    public static final String ACTION_PREVIOUS = "com.framgia.music_20.ACTION_PREVIOUS";
+    public static final String ACTION_NEXT = "com.framgia.music_20.ACTION_NEXT";
+    public static final String ACTION_EXIT = "com.framgia.music_20.ACTION_EXIT";
 
     @IntDef({ Tab.TAB_HOME, Tab.TAB_MY_MUSIC, Tab.TAB_SEARCH, Tab.TAB_ARTIST })
     public @interface Tab {

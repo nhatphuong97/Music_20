@@ -1,15 +1,22 @@
 package com.framgia.music_20.screen.main;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 import com.framgia.music_20.R;
+import com.framgia.music_20.screen.play_song.PlayMusicFragment;
 import com.framgia.music_20.utils.Constant;
 
 public class MainActivity extends AppCompatActivity
@@ -18,6 +25,8 @@ public class MainActivity extends AppCompatActivity
 
     BottomNavigationView mNavigationView = null;
     private ViewPager mViewPager;
+    private boolean doubleClicktoExit;
+    ConstraintLayout mConstraintLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +39,8 @@ public class MainActivity extends AppCompatActivity
         mNavigationView = findViewById(R.id.navigation);
         mNavigationView.setOnNavigationItemSelectedListener(this);
         mViewPager = findViewById(R.id.viewpager_home);
+        mConstraintLayout = findViewById(R.id.layout_mini);
+        mConstraintLayout.setVisibility(View.GONE);
         MainActivityAdapter activityAdapter = new MainActivityAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(activityAdapter);
         mViewPager.setOnPageChangeListener(this);
@@ -71,9 +82,14 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+    }
+
+    @Override
     public void onBackPressed() {
-        FragmentManager fm = getSupportFragmentManager();
-        for (Fragment frag : fm.getFragments()) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        for (Fragment frag : fragmentManager.getFragments()) {
             if (frag.isVisible()) {
                 FragmentManager childFm = frag.getChildFragmentManager();
                 if (childFm.getBackStackEntryCount() > 0) {
@@ -82,6 +98,18 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         }
-        super.onBackPressed();
+        if (doubleClicktoExit) {
+            moveTaskToBack(true);
+            return;
+        }
+        this.doubleClicktoExit = true;
+        getFragmentManager().popBackStack();
+        Toast.makeText(this, R.string.text_exit, Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubleClicktoExit = false;
+            }
+        }, Constant.TIME_RESPONE);
     }
 }

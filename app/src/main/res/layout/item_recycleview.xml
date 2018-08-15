@@ -49,7 +49,7 @@
             android:layout_marginStart="@dimen/dp_70"
             android:layout_marginTop="@dimen/dp_30"
             android:text="@string/title_mymusic"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/dp_15"
             android:textStyle="bold"
             />

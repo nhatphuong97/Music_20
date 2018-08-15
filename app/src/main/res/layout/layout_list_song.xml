@@ -16,13 +16,6 @@
         android:scaleType="fitXY"
         android:src="@drawable/ic_listsong"
         />
-    <ImageButton
-        android:id="@+id/button_back"
-        android:layout_width="@dimen/dp_50"
-        android:layout_height="@dimen/dp_50"
-        android:background="@null"
-        android:src="@drawable/ic_backspace"
-        />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycleview"
         android:layout_width="match_parent"

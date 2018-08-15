@@ -5,12 +5,22 @@ import android.os.Parcelable;
 
 public class Artist implements Parcelable {
 
+    public static final Creator<Artist> CREATOR = new Creator<Artist>() {
+        @Override
+        public Artist createFromParcel(Parcel in) {
+            return new Artist(in);
+        }
+
+        @Override
+        public Artist[] newArray(int size) {
+            return new Artist[size];
+        }
+    };
     private int mID;
     private String mUsername;
     private String mAvatarUrl;
 
     public Artist() {
-
     }
 
     public Artist(int id, String username, String avatarUrl) {
@@ -24,18 +34,6 @@ public class Artist implements Parcelable {
         mUsername = in.readString();
         mAvatarUrl = in.readString();
     }
-
-    public static final Creator<Artist> CREATOR = new Creator<Artist>() {
-        @Override
-        public Artist createFromParcel(Parcel in) {
-            return new Artist(in);
-        }
-
-        @Override
-        public Artist[] newArray(int size) {
-            return new Artist[size];
-        }
-    };
 
     public static Creator<Artist> getCREATOR() {
         return CREATOR;

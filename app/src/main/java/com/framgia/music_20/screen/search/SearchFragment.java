@@ -100,7 +100,7 @@ public class SearchFragment extends Fragment
         FragmentTransaction transaction =
                 getActivity().getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_down);
-        transaction.add(R.id.container, fragment);
+        transaction.add(R.id.container, fragment, Constant.TAG_PLAY_MUSIC);
         transaction.addToBackStack(null);
         transaction.commit();
     }
